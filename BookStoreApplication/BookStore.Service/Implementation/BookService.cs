@@ -14,12 +14,15 @@ namespace BookStore.Service.Implementation
         private readonly IRepository<Book> _bookRepository;
         private readonly IRepository<BookInShoppingCart> _bookInShoppingCartRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IBookRepository _books;
 
-        public BookService (IRepository<Book> bookRepository, IRepository<BookInShoppingCart> bookInShoppingCartRepository, IUserRepository userRepository)
+        public BookService (IRepository<Book> bookRepository, IRepository<BookInShoppingCart> bookInShoppingCartRepository, IUserRepository userRepository, IBookRepository books)
         {
             _bookRepository = bookRepository;
             _bookInShoppingCartRepository = bookInShoppingCartRepository;
             _userRepository = userRepository;
+            _books = books;
+
         }
 
         public void CreateNewBook(Book p)
@@ -48,5 +51,12 @@ namespace BookStore.Service.Implementation
         {
             _bookRepository.Update(p);
         }
+
+        public List<Book> GetBooksJson()
+        {
+            return _books.GetAllBooks().ToList();
+        }
+
+        
     }
 }

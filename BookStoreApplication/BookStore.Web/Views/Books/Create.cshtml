@@ -6,11 +6,11 @@
 
 <h1>Create</h1>
 
-<h4>Product</h4>
+<h4>Book</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" id="createBookForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Book.BookName" class="control-label"></label>
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Genres" class="control-label"></label>
-                <select id="namesDropdown" name="Book.Genre" asp-for="Book.Genre">
+                <select class="form-control" id="namesDropdown" name="Book.Genre" asp-for="Book.Genre">
                     @foreach (var genre in Model.Genres)
                     {
                         <option value="@genre.GenreName">@genre.GenreName</option>
@@ -48,6 +48,28 @@
                 <span asp-validation-for="Book.Rating" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label for="Authors">Authors</label>
+                <select multiple class="form-control" id="Authors" name="AuthorIds">
+                    @foreach (var author in Model.Authorsnn)
+                    {
+                        <option value="@author.Id">@author.AuthorName</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Publisher">Publisher</label>
+                <select class="form-control" id="Publisher" name="PublisherId">
+                    @foreach (var publisher in Model.Publishers)
+                    {
+                        <option value="@publisher.Id">@publisher.PublisherName</option>
+                    }
+                </select>
+            </div>
+
+
+
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -59,5 +81,22 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script type="text/javascript">
+        // Add event listener to the form submit
+        document.getElementById("createBookForm").addEventListener("submit", function (event) {
+            // Get selected Publisher and Authors
+            var selectedPublisher = document.getElementById("Publisher").value;
+            var selectedAuthors = Array.from(document.getElementById("Authors").selectedOptions).map(option => option.value);
+
+            // Log selected values to the console
+            console.log("Selected Publisher ID: ", selectedPublisher);
+            console.log("Selected Author IDs: ", selectedAuthors);
+
+            // You can add more logic if needed, like validating or logging other fields
+        });
+    </script>
 }

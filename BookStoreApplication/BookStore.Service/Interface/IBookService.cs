@@ -10,6 +10,7 @@ namespace BookStore.Service.Interface
     public interface IBookService
     {
         List<Book> GetAllBooks();
+        List<Book> GetBooksJson();
         Book GetDetailsForBook(Guid? id);
         void CreateNewBook(Book p);
         void UpdateExistingBook(Book p);

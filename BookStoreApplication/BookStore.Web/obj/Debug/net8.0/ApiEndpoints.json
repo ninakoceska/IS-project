@@ -1,6 +1,16 @@
 [
   {
     "ContainingType": "Eshop.Web.Controllers.API.AdminController",
+    "Method": "GetAllBooks",
+    "RelativePath": "api/Admin/GetAllBooks",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Eshop.Web.Controllers.API.AdminController",
     "Method": "GetAllOrders",
     "RelativePath": "api/Admin/GetAllOrders",
     "HttpMethod": "GET",

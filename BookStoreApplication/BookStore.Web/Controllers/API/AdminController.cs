@@ -13,11 +13,13 @@ namespace Eshop.Web.Controllers.API
     public class AdminController : ControllerBase
     {
         private readonly IOrderService _orderService;
+        private readonly IBookService _bookService;
         private readonly UserManager<BookStoreUser> _userManager;
-        public AdminController (IOrderService orderService, UserManager<BookStoreUser> userManager)
+        public AdminController (IOrderService orderService, UserManager<BookStoreUser> userManager, IBookService bookService)
         {
             _orderService = orderService;
             _userManager = userManager;
+            _bookService = bookService;
         }
         [HttpGet("[action]")]
         public List<Order> GetAllOrders()
@@ -28,6 +30,13 @@ namespace Eshop.Web.Controllers.API
         public Order GetDetails(BaseEntity id)
         {
             return this._orderService.GetDetailsForOrder(id);
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult GetAllBooks()
+        {
+            var books = _bookService.GetBooksJson().ToList();
+            return Ok(books);
         }
 
         [HttpPost("[action]")]
@@ -59,6 +68,6 @@ namespace Eshop.Web.Controllers.API
             }
             return status;
         }
-
+        
     }
 }
